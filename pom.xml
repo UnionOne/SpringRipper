@@ -10,6 +10,7 @@
     <modules>
         <module>terminator-quoter</module>
         <module>terminator-reapeat</module>
+        <module>terminator-double-phase</module>
     </modules>
     <packaging>pom</packaging>
     <name>Spring Ripper</name>
