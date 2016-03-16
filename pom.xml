@@ -12,6 +12,7 @@
         <module>terminator-reapeat</module>
         <module>terminator-double-phase</module>
         <module>terminator-profile</module>
+        <module>terminator-listener</module>
     </modules>
     <packaging>pom</packaging>
     <name>Spring Ripper</name>
