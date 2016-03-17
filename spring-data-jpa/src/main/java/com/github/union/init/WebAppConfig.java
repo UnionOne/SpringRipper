@@ -77,6 +77,7 @@ public class WebAppConfig {
         return transactionManager;
     }
 
+    @Bean
     public UrlBasedViewResolver urlBasedViewResolver() {
         UrlBasedViewResolver resolver = new UrlBasedViewResolver();
         resolver.setPrefix("/WEB-INF/pages");

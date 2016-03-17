@@ -9,7 +9,7 @@ public class Shop {
     @GeneratedValue
     private Integer id;
 
-    private String naame;
+    private String name;
 
     @Column(name = "employees_number")
     private Integer employeesNumber;
@@ -22,12 +22,12 @@ public class Shop {
         this.id = id;
     }
 
-    public String getNaame() {
-        return naame;
+    public String getName() {
+        return name;
     }
 
-    public void setNaame(String naame) {
-        this.naame = naame;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getEmployeesNumber() {
