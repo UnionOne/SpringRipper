@@ -15,9 +15,7 @@
         <module>terminator-listener</module>
         <module>terminator-quoter</module>
         <module>terminator-repeat</module>
-        <module>spring-hibernate-jpa</module>
         <module>spring-data-jpa</module>
-        <module>spring-data-jpa-boot</module>
     </modules>
 
     <build>
