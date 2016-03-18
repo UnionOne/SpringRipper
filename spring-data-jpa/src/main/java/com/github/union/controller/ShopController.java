@@ -3,15 +3,16 @@ package com.github.union.controller;
 import com.github.union.exception.ShopNotFoundException;
 import com.github.union.model.Shop;
 import com.github.union.service.ShopService;
+import com.github.union.validation.ShopValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -20,13 +21,27 @@ public class ShopController {
     @Autowired
     private ShopService shopService;
 
+    @Autowired
+    private ShopValidator shopValidator;
+
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+        binder.setValidator(shopValidator);
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public ModelAndView newShopPage() {
         return new ModelAndView("shop-new", "shop", new Shop());
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView createNewShop(@ModelAttribute Shop shop, final RedirectAttributes attributes) {
+    public ModelAndView createNewShop(@ModelAttribute @Valid Shop shop,
+                                      BindingResult result,
+                                      final RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            return new ModelAndView("shop-new");
+        }
+
         ModelAndView view = new ModelAndView();
         String message = "New shop " + shop.getName() + " was created";
 
@@ -54,7 +69,14 @@ public class ShopController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public ModelAndView editShop(@ModelAttribute Shop shop, @PathVariable Integer id, final RedirectAttributes attributes) throws ShopNotFoundException {
+    public ModelAndView editShop(@ModelAttribute @Valid Shop shop,
+                                 BindingResult result, @PathVariable Integer id,
+                                 final RedirectAttributes attributes) throws ShopNotFoundException {
+
+        if(result.hasErrors()) {
+            return new ModelAndView("shop-edit");
+        }
+
         ModelAndView view = new ModelAndView("redirect:/index.html");
         String message = "Shop was successfully updated.";
 
@@ -65,7 +87,9 @@ public class ShopController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteShop(@PathVariable Integer id, final RedirectAttributes attributes) throws ShopNotFoundException {
+    public ModelAndView deleteShop(@PathVariable Integer id,
+                                   final RedirectAttributes attributes) throws ShopNotFoundException {
+
         ModelAndView view = new ModelAndView("redirect:/index.html");
 
         Shop shop = shopService.delete(id);
