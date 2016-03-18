@@ -26,14 +26,14 @@ import java.util.Properties;
 @PropertySource("classpath:application.properties")
 @EnableJpaRepositories("com.github.union.repository")
 public class WebAppConfig {
-    private static final String PROPEERTY_NAME_DATABASE_DRIVER = "db.driver";
-    private static final String PROPEERTY_NAME_DATABASE_URL = "db.url";
-    private static final String PROPEERTY_NAME_DATABASE_USERNAME = "db.username";
-    private static final String PROPEERTY_NAME_DATABASE_PASSWORD = "db.password";
+    private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
+    private static final String PROPERTY_NAME_DATABASE_URL = "db.url";
+    private static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
+    private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
 
-    private static final String PROPEERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
-    private static final String PROPEERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
-    private static final String PROPEERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
+    private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
+    private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+    private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
 
     @Resource
     private Environment environment;
@@ -42,10 +42,10 @@ public class WebAppConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName(environment.getRequiredProperty(PROPEERTY_NAME_DATABASE_DRIVER));
-        dataSource.setUrl(environment.getRequiredProperty(PROPEERTY_NAME_DATABASE_URL));
-        dataSource.setUsername(environment.getRequiredProperty(PROPEERTY_NAME_DATABASE_USERNAME));
-        dataSource.setPassword(environment.getRequiredProperty(PROPEERTY_NAME_DATABASE_PASSWORD));
+        dataSource.setDriverClassName(environment.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
+        dataSource.setUrl(environment.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
+        dataSource.setUsername(environment.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
+        dataSource.setPassword(environment.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
 
         return dataSource;
     }
@@ -55,7 +55,7 @@ public class WebAppConfig {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistence.class);
-        entityManagerFactoryBean.setPackagesToScan(environment.getRequiredProperty(PROPEERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN));
+        entityManagerFactoryBean.setPackagesToScan(environment.getRequiredProperty(PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN));
 
         entityManagerFactoryBean.setJpaProperties(hibernateProperties());
 
@@ -64,8 +64,8 @@ public class WebAppConfig {
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put(PROPEERTY_NAME_HIBERNATE_DIALECT, environment.getRequiredProperty(PROPEERTY_NAME_HIBERNATE_DIALECT));
-        properties.put(PROPEERTY_NAME_HIBERNATE_SHOW_SQL, environment.getRequiredProperty(PROPEERTY_NAME_HIBERNATE_SHOW_SQL));
+        properties.put(PROPERTY_NAME_HIBERNATE_DIALECT, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
+        properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
 
         return properties;
     }
