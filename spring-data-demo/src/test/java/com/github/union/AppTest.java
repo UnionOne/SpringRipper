@@ -18,7 +18,7 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(value = "classpath*:spring-db-context.xml")
 @Transactional
 public class AppTest {
     private static final Logger LOG = LoggerFactory.getLogger(AppTest.class);
@@ -65,6 +65,18 @@ public class AppTest {
         System.out.println(person.getCountry());
 
         System.out.println("********** STALIN LIVE IN USSR **********");
+    }
+
+    @Test
+    public void testFindAllByCountry() {
+        System.out.println("********** WHO LIVES IN USSR **********");
+
+        List<Person> persons = personRepository.findAllByCountry("USSR");
+        for (Person person : persons) {
+            System.out.println(person.getName());
+        }
+
+        System.out.println("********** WHO LIVES IN USSR **********");
     }
 
     @Test
