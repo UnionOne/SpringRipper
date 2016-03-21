@@ -16,6 +16,7 @@
         <module>terminator-quoter</module>
         <module>terminator-repeat</module>
         <module>jsf-spring-hibernate</module>
+        <module>spring-data-demo</module>
     </modules>
 
     <build>
