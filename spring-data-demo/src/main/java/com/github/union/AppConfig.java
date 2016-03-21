@@ -20,6 +20,8 @@ public class AppConfig {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(Driver.class.getName());
         dataSource.setUrl("jdbc:postgresql://localhost:5432/rapeme");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("root");
         return dataSource;
     }
 
@@ -31,6 +33,7 @@ public class AppConfig {
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
+        jpaProperties.setProperty("hibernate.hbm2dll.auto", "create");
         jpaProperties.setProperty("hibernate.format_sql", "true");
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
         entityManagerFactoryBean.setPackagesToScan("com.github.union");
