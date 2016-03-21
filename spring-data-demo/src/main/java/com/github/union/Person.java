@@ -13,6 +13,7 @@ public class Person {
     private String country;
 
     public Person() {
+
     }
 
     public Person(String name, String country) {

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class SpeakerRepository {
+public class PersonRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
